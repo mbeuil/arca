@@ -1,5 +1,6 @@
 export type StoreDefaultType = Record<string, unknown>;
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type DispatchDefaultType = Record<string, (arg: any) => void>;
 
 export type Dispatch<T_Store, T_Dispatch> = (

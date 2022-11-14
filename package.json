@@ -5,6 +5,7 @@
   "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint src/**/* --ext .ts",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "commit": "git-cz"
