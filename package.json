@@ -1,5 +1,5 @@
 {
-  "name": "arca",
+  "name": "archa",
   "author": "mbeuil",
   "version": "0.0.0",
   "description": "Lightweight solution for React context creation.",
@@ -11,27 +11,27 @@
     "node": ">=10"
   },
   "main": "dist/index.js",
-  "module": "dist/arca.esm.js",
+  "module": "dist/archa.esm.js",
   "typings": "dist/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mbeuil/arca.git"
+    "url": "git+https://github.com/mbeuil/archa.git"
   },
   "bugs": {
-    "url": "https://github.com/mbeuil/arca/issues"
+    "url": "https://github.com/mbeuil/archa/issues"
   },
-  "homepage": "https://github.com/mbeuil/arca#readme",
+  "homepage": "https://github.com/mbeuil/archa#readme",
   "files": [
     "dist",
     "src"
   ],
   "size-limit": [
     {
-      "path": "dist/arca.cjs.production.min.js",
+      "path": "dist/archa.cjs.production.min.js",
       "limit": "10 KB"
     },
     {
-      "path": "dist/arca.esm.js",
+      "path": "dist/archa.esm.js",
       "limit": "10 KB"
     }
   ],

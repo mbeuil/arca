@@ -1,3 +1,3 @@
-# Arca
+# Archa
 
-Lightweight solution for React state management.
+Lightweight solution to create React context.
