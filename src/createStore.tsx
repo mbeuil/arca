@@ -1,6 +1,5 @@
 import * as React from 'react';
 
-import { useSnapshot } from './hooks/useSnapshot';
 import {
   CreateStoreReturn,
   Dispatch,
@@ -9,6 +8,7 @@ import {
   StoreDefaultType,
   UseStoreProps,
 } from './createStore.decl';
+import { useSnapshot } from './useSnapshot';
 
 export function createStore<
   T_Store extends StoreDefaultType,
@@ -67,5 +67,5 @@ export function createStore<
     return React.useSyncExternalStore(store.subscribe, getSnapshot);
   }
 
-  return [Provider, useStore];
+  return { Provider, useStore };
 }

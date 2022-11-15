@@ -1,32 +1,57 @@
 {
   "name": "arca",
-  "version": "1.0.0",
-  "description": "Lightweight solution for React state management.",
-  "main": "index.ts",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint src/**/* --ext .ts",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook",
-    "commit": "git-cz"
+  "author": "mbeuil",
+  "version": "0.0.0",
+  "description": "Lightweight solution for React context creation.",
+  "license": "Apache-2.0",
+  "keywords": [
+    "react"
+  ],
+  "engines": {
+    "node": ">=10"
   },
+  "main": "dist/index.js",
+  "module": "dist/arca.esm.js",
+  "typings": "dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mbeuil/arca.git"
   },
-  "keywords": [
-    "react"
-  ],
-  "author": "Maxime Beuil",
-  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/mbeuil/arca/issues"
   },
   "homepage": "https://github.com/mbeuil/arca#readme",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "size-limit": [
+    {
+      "path": "dist/arca.cjs.production.min.js",
+      "limit": "10 KB"
+    },
+    {
+      "path": "dist/arca.esm.js",
+      "limit": "10 KB"
+    }
+  ],
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test --passWithNoTests",
+    "lint": "eslint src/**/* --ext .ts",
+    "prepare": "tsdx build",
+    "size": "size-limit",
+    "analyze": "size-limit --why",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook",
+    "commit": "git-cz"
+  },
   "devDependencies": {
     "@babel/core": "^7.20.2",
     "@commitlint/cli": "^17.2.0",
     "@commitlint/config-conventional": "^17.2.0",
+    "@size-limit/preset-small-lib": "^8.1.0",
     "@storybook/addon-actions": "^6.5.13",
     "@storybook/addon-essentials": "^6.5.13",
     "@storybook/addon-interactions": "^6.5.13",
@@ -48,10 +73,13 @@
     "prettier": "^2.7.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-is": "^18.2.0",
+    "size-limit": "^8.1.0",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.4.1",
     "typescript": "^4.8.4"
   },
   "peerDependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react": ">=18"
   }
 }

@@ -24,9 +24,9 @@ export type UseStoreProps<T_Store, T_Dispatch, T_SelectorOutput> =
     ? DispatchLessStoreSelectorProps<T_Store, T_SelectorOutput>
     : DispatchFullStoreSelectorProps<T_Store, T_Dispatch, T_SelectorOutput>;
 
-export type CreateStoreReturn<T_Store, T_Dispatch> = [
-  Provider: (props: { children: React.ReactNode }) => JSX.Element,
+export type CreateStoreReturn<T_Store, T_Dispatch> = {
+  Provider: (props: { children: React.ReactNode }) => JSX.Element;
   useStore: <TSelectorOutput>(
     selector: UseStoreProps<T_Store, T_Dispatch, TSelectorOutput>,
-  ) => TSelectorOutput,
-];
+  ) => TSelectorOutput;
+};

@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { createStore } from '../createStore';
-import { useRenderCounter } from '../hooks/useRenderCounter';
+import { createStore } from '../../src/createStore';
+import { useRenderCounter } from './useRenderCounter';
 
-const [Provider, useStore] = createStore({
+const { Provider, useStore } = createStore({
   count: 0,
 });
 

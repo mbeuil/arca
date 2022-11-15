@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { storiesOf } from '@storybook/react';
 
-import { Form } from '../components/Form';
-import { Counter } from '../components/Counter';
-import { useRenderCounter } from '../hooks/useRenderCounter';
+import { Form } from './components/Form';
+import { Counter } from './components/Counter';
+import { useRenderCounter } from './components/useRenderCounter';
 
 const stories = storiesOf('createStore', module);
 
