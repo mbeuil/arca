@@ -1,7 +1,7 @@
 {
   "name": "archa",
   "author": "mbeuil",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Lightweight solution for React context creation.",
   "license": "MIT",
   "keywords": [
