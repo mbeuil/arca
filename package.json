@@ -3,7 +3,7 @@
   "author": "mbeuil",
   "version": "0.1.0",
   "description": "Lightweight solution for React context creation.",
-  "license": "Apache-2.0",
+  "license": "MIT",
   "keywords": [
     "react"
   ],
