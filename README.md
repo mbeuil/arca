@@ -3,6 +3,8 @@
 Lightweight solution to create custom React context. Build with typescript,
 untop useContext and useSyncExternalStore.
 
+[Demo](https://codesandbox.io/s/archa-demo-g56y7z?file=/src/App.tsx)
+
 Install it with :
 
 ```
