@@ -1,7 +1,7 @@
 # Archa
 
-Lightweight solution to create custom React context. Build untop useContext and
-useSyncExternalStore.
+Lightweight solution to create custom React context. Build with typescript,
+untop useContext and useSyncExternalStore.
 
 Install it with :
 
@@ -12,15 +12,15 @@ npm i archa
 To create your custom context use the `createStore` function. It takes 2
 arguments:
 
+- initialSate, an object with your states.
+- dispatch (optional), a callback exposing `set` and `get` methods to create a
+  list of functions to mutate your states.
+
 ```
 const { Provider, useStore } = createStore({
   string: ''
 });
 ```
-
-- initialSate, an object with your states.
-- dispatch (optional), a callback exposing `set` and `get` methods to create a
-  list of functions to mutate your states.
 
 and return:
 
@@ -44,7 +44,7 @@ const { Provider, useStore } = createStore({
 });
 
 function Count() {
-  const setStore = useStore((store) => store.setStore);
+  const setStore = useStore(({ setStore }) => setStore);
 
   return (
     <button onClick={() => setStore(({ count }) => ({ count: count + 1 }))}>
@@ -54,7 +54,7 @@ function Count() {
 }
 
 function CountDisplay() {
-  const count = useStore((store) => store.count);
+  const count = useStore(({ count }) => count);
 
   return (
     <span>{`The current count is ${count}.`}</span>
@@ -88,9 +88,9 @@ const { Provider, useStore } = createStore(
 );
 
 const FirstInput = () => {
-  const [first, updateFirst] = useStore((store) => [
-    store.first,
-    store.updateFirst,
+  const [first, updateFirst] = useStore(({ first, updateFirst}) => [
+    first,
+    updateFirst,
   ]);
 
   return (
