@@ -27,8 +27,9 @@ const { Provider, useStore } = createStore({
 and return:
 
 - Provider
-- useStore, expose all state and a setStore method, trigger a rerender of your
-  component only when one of the returned state is mutate.
+- useStore, expose all state and a setStore method. Trigger a rerender of your
+  component only when one of the returned state is mutate. If dipatch were
+  provided setStore will not be expose.
 - useDispatch, expose all dispatch functions
 
   ```
@@ -90,7 +91,7 @@ const { Provider, useStore, useDispatch } = createStore(
     addCount: () => {
       const { count } = get();
       set({ count: count + 1 }):
-    }
+    },
     removeCount: () => {
       const { count } = get();
       set({ count: count - 1 }):

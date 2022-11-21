@@ -6,6 +6,7 @@ import {
   DispatchDefaultType,
   SetProps,
   StoreDefaultType,
+  StoreSelectorProps,
   UseDispatchProps,
   UseStoreProps,
 } from './createStore.decl';
@@ -51,7 +52,7 @@ export function createStore<
   }
 
   function useStore<T_SelectorOutput>(
-    selector: UseStoreProps<T_Store, T_SelectorOutput>,
+    selector: UseStoreProps<T_Store, T_Dispatch, T_SelectorOutput>,
   ) {
     const store = React.useContext(Store);
     const createSnapshot = useSnapshot<T_SelectorOutput>();
@@ -61,7 +62,13 @@ export function createStore<
     }
 
     const getSnapshot = () =>
-      createSnapshot(selector({ ...store.get(), setStore: store.set }));
+      createSnapshot(
+        selector(
+          (!dispatch
+            ? { ...store.get(), setStore: store.set }
+            : { ...store.get() }) as StoreSelectorProps<T_Store, T_Dispatch>,
+        ),
+      );
 
     return React.useSyncExternalStore(store.subscribe, getSnapshot);
   }
