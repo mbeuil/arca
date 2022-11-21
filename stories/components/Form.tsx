@@ -3,7 +3,7 @@ import * as React from 'react';
 import { createStore } from '../../src/createStore';
 import { useRenderCounter } from './useRenderCounter';
 
-const { Provider, useStore } = createStore(
+const { Provider, useStore, useDispatch } = createStore(
   {
     first: '',
     last: '',
@@ -15,9 +15,9 @@ const { Provider, useStore } = createStore(
 );
 
 const TextInput = ({ value }: { value: 'first' | 'last' }) => {
-  const [fieldValue, setStore] = useStore(
-    React.useCallback((store) => [store[value], store[`update${value}`]], []),
-  );
+  const fieldValue = useStore((store) => store[value]);
+  const updateField = useDispatch((dispatch) => dispatch[`update${value}`]);
+
   const RenderCounter = useRenderCounter();
 
   return (
@@ -31,7 +31,7 @@ const TextInput = ({ value }: { value: 'first' | 'last' }) => {
         gridTemplateColumns: 'auto auto 1fr',
       }}>
       {value}:{' '}
-      <input value={fieldValue} onChange={(e) => setStore(e.target.value)} />
+      <input value={fieldValue} onChange={(e) => updateField(e.target.value)} />
       {RenderCounter}
     </div>
   );
