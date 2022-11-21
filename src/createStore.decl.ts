@@ -15,18 +15,20 @@ export type SetProps<T_Store> =
 type DispatchLessStoreSelectorProps<T_Store, T_SelectorOutput> = (
   store: T_Store & { setStore: (setter: SetProps<T_Store>) => void },
 ) => T_SelectorOutput;
-type DispatchFullStoreSelectorProps<T_Store, T_Dispatch, T_SelectorOutput> = (
-  store: T_Store & T_Dispatch,
-) => T_SelectorOutput;
 
-export type UseStoreProps<T_Store, T_Dispatch, T_SelectorOutput> =
-  T_Dispatch extends undefined
-    ? DispatchLessStoreSelectorProps<T_Store, T_SelectorOutput>
-    : DispatchFullStoreSelectorProps<T_Store, T_Dispatch, T_SelectorOutput>;
+export type UseStoreProps<T_Store, T_SelectorOutput> =
+  DispatchLessStoreSelectorProps<T_Store, T_SelectorOutput>;
+
+export type UseDispatchProps<T_Dispatch, T_SelectorOutput> = (
+  dispatch: T_Dispatch,
+) => T_SelectorOutput;
 
 export type CreateStoreReturn<T_Store, T_Dispatch> = {
   Provider: (props: { children: React.ReactNode }) => JSX.Element;
   useStore: <TSelectorOutput>(
-    selector: UseStoreProps<T_Store, T_Dispatch, TSelectorOutput>,
+    selector: UseStoreProps<T_Store, TSelectorOutput>,
+  ) => TSelectorOutput;
+  useDispatch: <TSelectorOutput>(
+    selector: UseDispatchProps<T_Dispatch, TSelectorOutput>,
   ) => TSelectorOutput;
 };

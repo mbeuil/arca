@@ -6,6 +6,7 @@ import {
   DispatchDefaultType,
   SetProps,
   StoreDefaultType,
+  UseDispatchProps,
   UseStoreProps,
 } from './createStore.decl';
 import { useSnapshot } from './useSnapshot';
@@ -50,22 +51,32 @@ export function createStore<
   }
 
   function useStore<T_SelectorOutput>(
-    selector: UseStoreProps<T_Store, T_Dispatch, T_SelectorOutput>,
+    selector: UseStoreProps<T_Store, T_SelectorOutput>,
   ) {
     const store = React.useContext(Store);
     const createSnapshot = useSnapshot<T_SelectorOutput>();
 
     if (!store) {
-      throw new Error('useState must be used within its Provider');
+      throw new Error('useStore must be used within its Provider');
     }
 
     const getSnapshot = () =>
-      createSnapshot(
-        selector({ ...store.get(), ...store.update, setStore: store.set }),
-      );
+      createSnapshot(selector({ ...store.get(), setStore: store.set }));
 
     return React.useSyncExternalStore(store.subscribe, getSnapshot);
   }
 
-  return { Provider, useStore };
+  function useDispatch<T_SelectorOutput>(
+    selector: UseDispatchProps<T_Dispatch, T_SelectorOutput>,
+  ) {
+    const store = React.useContext(Store);
+
+    if (!store) {
+      throw new Error('useDispatch must be used within its Provider');
+    }
+
+    return selector(store.update);
+  }
+
+  return { Provider, useStore, useDispatch };
 }
