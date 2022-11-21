@@ -27,12 +27,13 @@ const { Provider, useStore } = createStore({
 and return:
 
 - Provider
-- useStore, expose all state and dispatch, expose instead a setStore method if
-  no dispatch were passed to `createStore`, and trigger a rerender of your
-  component each time one of the returned state is mutate.
+- useStore, expose all state and a setStore method, trigger a rerender of your
+  component only when one of the returned state is mutate.
+- useDispatch, expose all dispatch functions
 
   ```
-  const [setStore] = useStore((store) => [store.state store.setStore]);
+  const [state1, setStore] = useStore((store) => [store.state1 store.setStore]);
+  const function1 = useDispatch((dispatch) => dispatch.function1);
   ...
   setStore(({ string }) => ({ string: newString })
 
@@ -40,7 +41,9 @@ and return:
 
 ## Example without dispatch
 
-```
+```ts
+import { createStore } from 'archa';
+
 const { Provider, useStore } = createStore({
   count: 0,
 });
@@ -52,15 +55,16 @@ function Count() {
     <button onClick={() => setStore(({ count }) => ({ count: count + 1 }))}>
       Increment count
     </button>
+    <button onClick={() => setStore(({ count }) => ({ count: count - 1 }))}>
+      Decrement count
+    </button>
   );
 }
 
 function CountDisplay() {
   const count = useStore(({ count }) => count);
 
-  return (
-    <span>{`The current count is ${count}.`}</span>
-  );
+  return <span>{`The current count is ${count}.`}</span>;
 }
 
 export function Counter() {
@@ -75,38 +79,53 @@ export function Counter() {
 
 ## Example with dispatch
 
-```
+```ts
 import { createStore } from 'archa';
 
-const { Provider, useStore } = createStore(
+const { Provider, useStore, useDispatch } = createStore(
   {
-    first: '',
-    last: '',
+    count: 0,
   },
-  (set, _get) => ({
-    updatefirst: (value: string) => set({ first: value }),
-    updatelast: (value: string) => set({ last: value }),
+  (set, get) => ({
+    addCount: () => {
+      const { count } = get();
+      set({ count: count + 1 }):
+    }
+    removeCount: () => {
+      const { count } = get();
+      set({ count: count - 1 }):
+    }
   }),
 );
 
-const FirstInput = () => {
-  const [first, updateFirst] = useStore(({ first, updateFirst}) => [
-    first,
-    updateFirst,
+function Count() {
+  const [ addCount, removeCount ] = useDispatch((dispatch) => [
+    dispatch.addCount, dispatch.removeCount
   ]);
 
   return (
-    <input value={first} onChange={(e) => updateFirst(e.target.value)} />
+    <button onClick={addCount}>
+      Increment count
+    </button>
+    <button onClick={removeCount}>
+      Decrement count
+    </button>
   );
-};
+}
 
-...
+function CountDisplay() {
+  const count = useStore((store) => store.count);
 
-function Form() {
+  return (
+    <span>{`The current count is ${count}.`}</span>
+  );
+}
+
+export function Counter() {
   return (
     <Provider>
-      <FirstInput />
-      <LastInput />
+      <CountDisplay />
+      <Count />
     </Provider>
   );
 }
