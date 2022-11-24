@@ -28,17 +28,26 @@ and return:
 
 - Provider
 - useStore, expose all state and a setStore method. Trigger a rerender of your
-  component only when one of the returned state is mutate. If dipatch were
+  component only when one of the returned state is mutate. If dispatch were
   provided setStore will not be expose.
 - useDispatch, expose all dispatch functions
 
-  ```
+```
   const [state1, setStore] = useStore((store) => [store.state1 store.setStore]);
   const function1 = useDispatch((dispatch) => dispatch.function1);
   ...
   setStore(({ string }) => ({ string: newString })
 
-  ```
+```
+
+## To Do
+
+- [] Add a way to get selectors value.
+  - by changing useDispatch into useActions (name WIP)
+  - by creating a new useSelector hook. If so, should useDispatch use return
+    value to update the store instead of using the set method ?
+- [] Make the Provider be able to take value (`Partial<T_Store>`).
+- [] Add test.
 
 ## Example without dispatch
 
@@ -50,20 +59,22 @@ const { Provider, useStore } = createStore({
 });
 
 function Count() {
-  const setStore = useStore(({ setStore }) => setStore);
+  const setStore = useStore((store) => store.setStore);
 
   return (
-    <button onClick={() => setStore(({ count }) => ({ count: count + 1 }))}>
-      Increment count
-    </button>
-    <button onClick={() => setStore(({ count }) => ({ count: count - 1 }))}>
-      Decrement count
-    </button>
+    <>
+      <button onClick={() => setStore(({ count }) => ({ count: count + 1 }))}>
+        Increment count
+      </button>
+      <button onClick={() => setStore(({ count }) => ({ count: count - 1 }))}>
+        Decrement count
+      </button>
+    </>
   );
 }
 
 function CountDisplay() {
-  const count = useStore(({ count }) => count);
+  const count = useStore((store) => store.count);
 
   return <span>{`The current count is ${count}.`}</span>;
 }
